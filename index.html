@@ -54,6 +54,7 @@
                 <div class="col-md-6" style="text-align: center;">
                     <div class="well" style="position: relative;display: inline-block;">
                         <canvas id="qr-canvas" width="320" height="240"></canvas>
+
                         <div class="scanner-laser laser-rightBottom" style="opacity: 0.5;"></div>
                         <div class="scanner-laser laser-rightTop" style="opacity: 0.5;"></div>
                         <div class="scanner-laser laser-leftBottom" style="opacity: 0.5;"></div>
@@ -61,6 +62,7 @@
                     </div>
 
                 </div>
+
                 <div class="col-md-6" style="text-align: center;">
                         <div class="well" style="position: relative;display: inline-block;">
                                 <h3>Scanned result :</h3>
@@ -69,6 +71,8 @@
                 </div>
             </div>
             <div class="panel-footer">
+                    <select></select>
+
             </div>
         </div>
     </div>
@@ -82,6 +86,16 @@
                     $('#scanned-QR').append($('<li>' + result.format + ': ' + result.code + '</li>'));
                 }
             };
-            $("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery.play();
+            //$("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery.play();
+
+            var decoder = $("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery;
+            decoder.buildSelectMenu("select");
+            decoder.play();
+            /*  Without visible select menu
+                decoder.buildSelectMenu(document.createElement('select'), 'environment|back').init(arg).play();
+            */
+            $('select').on('change', function(){
+                decoder.stop().play();
+            });
         </script>
 </html>
